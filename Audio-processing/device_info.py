@@ -1,3 +1,4 @@
+#to get the input microphone deice index
 import pyaudio
 
 p = pyaudio.PyAudio()
