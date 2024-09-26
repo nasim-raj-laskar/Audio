@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import scrolledtext
-from PIL import Image, ImageTk, Image
+from PIL import Image, ImageTk
 import pyaudio
 import json
 from vosk import Model, KaldiRecognizer
