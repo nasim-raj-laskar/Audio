@@ -1,3 +1,4 @@
+#to find the input devce index
 import pyaudio
 
 p=pyaudio.PyAudio()
