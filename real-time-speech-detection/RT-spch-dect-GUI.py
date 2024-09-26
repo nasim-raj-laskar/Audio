@@ -1,3 +1,4 @@
+#prerequisite labraies
 import tkinter as tk
 from tkinter import scrolledtext
 from PIL import Image, ImageTk
@@ -7,12 +8,14 @@ from vosk import Model, KaldiRecognizer
 from threading import Thread, Event
 from queue import Queue
 
+#audio parameters
 CHANNELS = 1
 FRAME_RATE = 16000
 RECORD_SECONDS = 2
 AUDIO_FORMAT = pyaudio.paInt16
 SAMPLE_SIZE = 2
 
+#load the model(light weight model....u can use a heavy model for better recognition)
 model = Model(model_name="vosk-model-small-en-us-0.15")
 rec = KaldiRecognizer(model, FRAME_RATE)
 rec.SetWords(True)
