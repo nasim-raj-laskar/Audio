@@ -24,6 +24,7 @@ messages = Queue()
 recordings = Queue()
 stop_event = Event()
 
+#record func
 def record_microphone(chunk=512):
     p = pyaudio.PyAudio()
     stream = p.open(format=AUDIO_FORMAT,
@@ -46,7 +47,8 @@ def record_microphone(chunk=512):
     stream.stop_stream()
     stream.close()
     p.terminate()
-
+    
+#recog finc
 def speech_recognition(output_widget):
     while not stop_event.is_set() or not recordings.empty():
         if not recordings.empty():
@@ -61,6 +63,7 @@ def speech_recognition(output_widget):
                 output_widget.insert(tk.END, f"Recognized: {text}\n")
                 output_widget.see(tk.END)
 
+#func to start recording
 def start_recording(output_widget):
     messages.put(True)
     output_widget.insert(tk.END, "Starting recording...\n")
@@ -73,11 +76,13 @@ def start_recording(output_widget):
     transcribe_thread = Thread(target=speech_recognition, args=(output_widget,))
     transcribe_thread.start()
 
+#func to syop recoding
 def stop_recording(output_widget):
     stop_event.set() 
     output_widget.insert(tk.END, "Stopped recording.\n")
     output_widget.see(tk.END)
 
+#func for inserting an image
 def insert_image(output_widget, image_path):
     img = Image.open(image_path)
     img = img.resize((700, 700), Image.LANCZOS)  
@@ -91,17 +96,19 @@ def create_gui():
     root.title("Speech Recog gok gok")
     root.configure(bg="#141414")
 
+    #text dispaly
     output_widget = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=72, height=21, bg="#000000", fg="white", font=("Helvetica", 12))
     output_widget.pack(pady=10)
 
-     
+     #record button
     record_button = tk.Button(root, text="Start Recording ▶", command=lambda: start_recording(output_widget), bg="green", fg="white", font=("Helvetica", 15, "bold"), padx=20, pady=10)
     record_button.pack(side=tk.LEFT, padx=20, pady=20)
 
-     
+     #stopp button
     stop_button = tk.Button(root, text="Stop Recording ■ ", command=lambda: stop_recording(output_widget), bg="red", fg="white", font=("Helvetica", 15, "bold"), padx=20, pady=10)
     stop_button.pack(side=tk.RIGHT, padx=20, pady=20)
 
+    #image insertion
     insert_image(output_widget, "35.jpg")
 
     root.geometry("700x500+300+100")
